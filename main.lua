@@ -43,7 +43,12 @@ cardConstructors = {
   cardDionysus = DionysusPrototype.new,
   cardHermes = HermesPrototype.new,
   cardAphrodite = AphroditePrototype.new,
-  cardApollo = ApolloPrototype.new
+  cardApollo = ApolloPrototype.new,
+  cardCyclops = CyclopsPrototype.new,
+  cardHephaestus = HephaestusPrototype.new,
+  cardHera = HeraPrototype.new,
+  cardNyx = NyxPrototype.new,
+  cardPersephone = PersephonePrototype.new
 }
 
 stringFunction = {
@@ -60,7 +65,12 @@ stringFunction = {
   ["Dionysus.png"] = cardConstructors.cardDionysus,
   ["Hermes.png"] = cardConstructors.cardHermes,
   ["Aphrodite.png"] = cardConstructors.cardAphrodite,
-  ["Apollo.png"] = cardConstructors.cardApollo
+  ["Apollo.png"] = cardConstructors.cardApollo,
+  ["Cyclops.png"] = cardConstructors.cardCyclops,
+  ["Hephaestus.png"] = cardConstructors.cardHephaestus,
+  ["Hera.png"] = cardConstructors.cardHera,
+  ["Nyx.png"] = cardConstructors.cardNyx,
+  ["Persephone.png"] = cardConstructors.cardPersephone
 }
 
 Backgrounds = {

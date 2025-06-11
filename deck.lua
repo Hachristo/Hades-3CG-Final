@@ -1,26 +1,5 @@
 
 DeckClass = {}
-Suits = {
-  [1] = "hearts",
-  [2] = "clubs",
-  [3] = "diamonds",
-  [4] = "spades"
-}
-Numbers = {
-  [1] = "01",
-  [2] = "02",
-  [3] = "03",
-  [4] = "04",
-  [5] = "05",
-  [6] = "06",
-  [7] = "07",
-  [8] = "08",
-  [9] = "09",
-  [10] = "10",
-  [11] = "11",
-  [12] = "12",
-  [13] = "13"
-}
 Cards = {
   "Aphrodite",
   "Apollo",
@@ -49,7 +28,17 @@ Cards = {
   "Poseidon",
   "Titan",
   "Wooden Cow",
-  "Zeus"
+  "Zeus",
+  "Cyclops",
+  "Hephaestus",
+  "Hera",
+  "Nyx",
+  "Persephone",
+  "Cyclops",
+  "Hephaestus",
+  "Hera",
+  "Nyx",
+  "Persephone"
 }
 
 function copyTable(t)
@@ -78,11 +67,11 @@ end
 
 function DeckClass:fillDeck()
   for i = 1, 20 do
-    local randomIndex = math.random(#self.allCards)
-    local card = self.allCards[randomIndex] .. ".png"
-    table.insert(self.cards, card)
-    table.remove(self.allCards, randomIndex)
---    table.insert(self.cards, "Dionysus.png")
+--    local randomIndex = math.random(#self.allCards)
+--    local card = self.allCards[randomIndex] .. ".png"
+--    table.insert(self.cards, card)
+--    table.remove(self.allCards, randomIndex)
+    table.insert(self.cards, "Nyx.png")
   end
 end
 

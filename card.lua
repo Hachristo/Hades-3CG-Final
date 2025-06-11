@@ -31,7 +31,12 @@ Cost = {
   ["Poseidon.png"] = 5,
   ["Titan.png"] = 6,
   ["Wooden Cow.png"] = 1,
-  ["Zeus.png"] = 5
+  ["Zeus.png"] = 5,
+  ["Cyclops.png"] = 2,
+  ["Hera.png"] = 3,
+  ["Hephaestus.png"] = 2,
+  ["Persephone.png"] = 2,
+  ["Nyx.png"] = 4
 }
 
 Power = {
@@ -48,7 +53,12 @@ Power = {
   ["Poseidon.png"] = 9,
   ["Titan.png"] = 12,
   ["Wooden Cow.png"] = 1,
-  ["Zeus.png"] = 9
+  ["Zeus.png"] = 9,
+  ["Cyclops.png"] = 4,
+  ["Hera.png"] = 4,
+  ["Hephaestus.png"] = 3,
+  ["Persephone.png"] = 4,
+  ["Nyx.png"] = 5
 }
 
 function CardClass:new(xPos, yPos, sprite, draggable, faceUp, player)
@@ -431,6 +441,153 @@ function ApolloPrototype:onReveal(cardLocation)
     playerBonusMana = playerBonusMana + 1
   else
     AIBonusMana = AIBonusMana + 1
+  end
+  self.revealed = true
+end
+-- Cyclops
+CyclopsPrototype = CardClass:new(0, 0, "Cyclops.png", false, false, 0)
+function CyclopsPrototype:new(_player)
+  local card = CardClass:new(0, 0, "Cyclops.png", false, false, _player)
+  local metadata = {__index = CyclopsPrototype}
+  setmetatable(card, metadata)
+  return card
+end
+function CyclopsPrototype:onReveal(cardLocation)
+  if self.player == 1 then
+    for _, card in ipairs(pileTable[cardLocation].cards) do
+      if card == self then
+        
+      else
+        pileTable[cardLocation]:removeCard(card)
+        pileTable[4]:addCard(card)
+        self.power = self.power + 2
+      end
+    end
+  else
+    for _, card in ipairs(pileTable[5 + cardLocation].cards) do
+      if card == self then
+        
+      else
+        pileTable[5 + cardLocation]:removeCard(card)
+        pileTable[9]:addCard(card)
+        self.power = self.power + 2
+      end
+    end
+  end
+  self.revealed = true
+end
+-- Hephaestus
+HephaestusPrototype = CardClass:new(0, 0, "Hephaestus.png", false, false, 0)
+function HephaestusPrototype:new(_player)
+  local card = CardClass:new(0, 0, "Hephaestus.png", false, false, _player)
+  local metadata = {__index = HephaestusPrototype}
+  setmetatable(card, metadata)
+  return card
+end
+function HephaestusPrototype:onReveal(cardLocation)
+  if self.player == 1 then
+    for i = 1, 2 do
+      if pileTable[5].cards[i] ~= nil then
+        pileTable[5].cards[i].cost = pileTable[5].cards[i].cost - 1
+      end
+    end
+  else
+    for i = 1, 2 do
+      if pileTable[10].cards[i] ~= nil then
+        pileTable[10].cards[i].cost = pileTable[10].cards[i].cost - 1
+      end
+    end
+  end
+  self.revealed = true
+end
+-- Hera
+HeraPrototype = CardClass:new(0, 0, "Hera.png", false, false, 0)
+function HeraPrototype:new(_player)
+  local card = CardClass:new(0, 0, "Hera.png", false, false, _player)
+  local metadata = {__index = HeraPrototype}
+  setmetatable(card, metadata)
+  return card
+end
+function HeraPrototype:onReveal(cardLocation)
+  if self.player == 1 then
+    for _, card in ipairs(pileTable[5].cards) do
+      card.power = card.power + 1
+    end
+  else
+    for _, card in ipairs(pileTable[10].cards) do
+      card.power = card.power + 1
+    end
+  end
+  self.revealed = true
+end
+-- Nyx
+NyxPrototype = CardClass:new(0, 0, "Nyx.png", false, false, 0)
+function NyxPrototype:new(_player)
+  local card = CardClass:new(0, 0, "Nyx.png", false, false, _player)
+  local metadata = {__index = NyxPrototype}
+  setmetatable(card, metadata)
+  return card
+end
+function NyxPrototype:onReveal(cardLocation)
+  if self.player == 1 then
+    for _, card in ipairs(pileTable[cardLocation].cards) do
+      if card ~= self then
+        pileTable[cardLocation]:removeCard(card)
+        pileTable[4]:addCard(card)
+        self.power = self.power + card.power
+      end
+    end
+  else
+    for _, card in ipairs(pileTable[5 + cardLocation].cards) do
+      if card ~= self then
+        pileTable[5 + cardLocation]:removeCard(card)
+        pileTable[9]:addCard(card)
+        self.power = self.power + card.power
+      end
+    end
+  end
+  self.revealed = true
+end
+-- Persephone
+PersephonePrototype = CardClass:new(0, 0, "Persephone.png", false, false, 0)
+function PersephonePrototype:new(_player)
+  local card = CardClass:new(0, 0, "Persephone.png", false, false, _player)
+  local metadata = {__index = PersephonePrototype}
+  setmetatable(card, metadata)
+  return card
+end
+function PersephonePrototype:onReveal(cardLocation)
+  if self.player == 1 then
+    local lowestCard = nil
+    local lowestPower = 20
+    for _, card in ipairs(pileTable[5].cards) do
+      if card.power < lowestPower then
+        lowestCard = card
+        lowestPower = card.power
+      end
+    end
+    print(lowestCard.name)
+    if lowestCard == nil then
+      self.revealed = true
+      return
+    end
+    pileTable[5]:removeCard(lowestCard)
+    pileTable[4]:addCard(lowestCard)
+  else
+    local lowestCard = nil
+    local lowestPower = 20
+    for _, card in ipairs(pileTable[10].cards) do
+      if card.power < lowestPower then
+        lowestCard = card
+        lowestPower = card.power
+      end
+    end
+    if lowestCard == nil then
+      self.revealed = true
+      return
+    end
+    pileTable[10]:removeCard(lowestCard)
+    pileTable[9]:addCard(lowestCard)
   end
   self.revealed = true
 end
