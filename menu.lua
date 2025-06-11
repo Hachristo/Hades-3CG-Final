@@ -34,6 +34,7 @@ function MenuClass:draw()
 end
 
 function love.handlers.Credits()
+  loadCredits()
   scene = 3
 end
 

@@ -6,6 +6,7 @@ require "pile"
 require "drawPile"
 require "deck"
 require "menu"
+require "credits"
 
 seed = os.time()
 seedAI = seed + 1
@@ -81,6 +82,8 @@ function love.update()
     menu:update()
   elseif scene == 2 then
     gameUpdate()
+  else
+    credits:update()
   end
 end
 
@@ -89,6 +92,8 @@ function love.draw()
     menu:draw()
   elseif scene == 2 then
     gameDraw()
+  else
+    credits:draw()
   end
 end
 
@@ -146,7 +151,6 @@ function gameDraw()
   love.graphics.print("Press R to reset (same seed)",0,0)
   love.graphics.print("Press Y to restart (new seed)",0,15)
   love.graphics.print("Press S to submit turn",0,30)
-  love.graphics.print("Hades: Battle for the Underworld", 750, 10, 0, 2, 2)
   -- Player
   love.graphics.print("Mana: " .. playerMana, 1750, 850)
   love.graphics.print("Points: " .. playerPoints, 1750, 865)
@@ -221,6 +225,10 @@ function loadMenu()
   love.graphics.setBackgroundColor(0, 0.37, 0.58, 1)
   
   menu = MenuClass:new()
+end
+
+function loadCredits()
+  credits = CreditsClass:new()
 end
 
 function loadGame(seed, seedAI)
