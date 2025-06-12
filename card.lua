@@ -154,7 +154,7 @@ end
 -- Pegasus
 PegasusPrototype = CardClass:new(0, 0, "Pegasus.png", false, false, 0)
 function PegasusPrototype:new(_player)
-  local card = CardClass:new(0, 0, "Minotaur.png", false, false, _player)
+  local card = CardClass:new(0, 0, "Pegasus.png", false, false, _player)
   local metadata = {__index = PegasusPrototype}
   setmetatable(card, metadata)
   return card
