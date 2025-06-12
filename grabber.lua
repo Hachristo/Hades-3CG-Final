@@ -107,7 +107,7 @@ function GrabberClass:release()
   end
   
 
-  if isValidReleasePosition then
+  if isValidReleasePosition and self:checkEnoughMana() then
     -- if there was a pile that we took the card stack from, remove those cards from the pile
     if self.prevPile ~= nil then
       for _, card in ipairs(self.heldObject) do
@@ -139,10 +139,10 @@ function GrabberClass:release()
   self.grabPos = nil
 end
 
-function GrabberClass:checkValidTableauPosition()
-  return true
-end
-
-function GrabberClass:checkValidAcePilePosition()
-  return true
+function GrabberClass:checkEnoughMana()
+  if playerMana - self.heldObject[1].cost < 0 then
+    return false
+  else
+    return true
+  end
 end

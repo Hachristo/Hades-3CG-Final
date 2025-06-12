@@ -41,9 +41,13 @@ function PileClass:tableauUpdate()
   local pileMana = 0
   local pilePower = 0
   for i, iCard in ipairs(self.cards) do
-    if iCard.player == 2 and iCard.revealed == false then
-      iCard.side = false
+    if iCard.player == 2 then
+      if iCard.revealed == true then
+        iCard.side = true
+      else
+        iCard.side = false
       iCard.draggable = false
+      end
     else
       iCard.side = true
       iCard.draggable = true

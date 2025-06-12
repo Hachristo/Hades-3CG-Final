@@ -67,11 +67,11 @@ end
 
 function DeckClass:fillDeck()
   for i = 1, 20 do
---    local randomIndex = math.random(#self.allCards)
---    local card = self.allCards[randomIndex] .. ".png"
---    table.insert(self.cards, card)
---    table.remove(self.allCards, randomIndex)
-    table.insert(self.cards, "Nyx.png")
+    local randomIndex = math.random(#self.allCards)
+    local card = self.allCards[randomIndex] .. ".png"
+    table.insert(self.cards, card)
+    table.remove(self.allCards, randomIndex)
+--    table.insert(self.cards, "Nyx.png")
   end
 end
 

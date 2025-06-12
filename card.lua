@@ -94,17 +94,31 @@ end
 
 function CardClass:draw()
   if self.side then
-    love.graphics.draw(self.image, self.position.x, self.position.y, 0, self.scale, self.scale)
-    love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 6, 6)
-    love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.print(self.cost, self.position.x + 16, self.position.y + 179)
-    if self.power > 9 then
-      love.graphics.print(self.power, self.position.x + 115, self.position.y + 179)
+    if self.state == CARD_STATE.GRABBED then
+      love.graphics.draw(self.image, self.position.x, self.position.y, 0, self.scale + 0.05, self.scale + 0.05)
+      love.graphics.rectangle("line", self.position.x - 1, self.position.y - 1, self.size.x + 15, self.size.y + 18, 6, 6)
+      love.graphics.setColor(0, 0, 0, 1)
+      love.graphics.print(self.cost, self.position.x + 19, self.position.y + 195)
+      if self.power > 9 then
+        love.graphics.print(self.power, self.position.x + 123, self.position.y + 195)
+      else
+        love.graphics.print(self.power, self.position.x + 128, self.position.y + 195)
+      end
+      love.graphics.setColor(1, 1, 1, 1)
     else
-      love.graphics.print(self.power, self.position.x + 120, self.position.y + 179)
+      love.graphics.draw(self.image, self.position.x, self.position.y, 0, self.scale, self.scale)
+      if self.state == CARD_STATE.MOUSE_OVER then
+        love.graphics.rectangle("line", self.position.x - 1, self.position.y - 1, self.size.x + 2, self.size.y + 2, 6, 6)
+      end
+      love.graphics.setColor(0, 0, 0, 1)
+      love.graphics.print(self.cost, self.position.x + 16, self.position.y + 179)
+      if self.power > 9 then
+        love.graphics.print(self.power, self.position.x + 115, self.position.y + 179)
+      else
+        love.graphics.print(self.power, self.position.x + 120, self.position.y + 179)
+      end
+      love.graphics.setColor(1, 1, 1, 1)
     end
-    
-    love.graphics.setColor(1, 1, 1, 1)
 
   else
     love.graphics.draw(self.back, self.position.x, self.position.y, 0, 3.45, 3.45)
@@ -119,18 +133,10 @@ function CardClass:checkForMouseOver(grabber)
     
   local mousePos = grabber.currentMousePos
   local isMouseOver = false
-  if self.bottomCard then
-    isMouseOver = mousePos.x > self.position.x and
-      mousePos.x < self.position.x + self.size.x and
-      mousePos.y > self.position.y and
-      mousePos.y < self.position.y + self.size.y
-  else
-    isMouseOver = 
-      mousePos.x > self.position.x and
-      mousePos.x < self.position.x + self.size.x and
-      mousePos.y > self.position.y and
-      mousePos.y < self.position.y + (self.size.y / 5)
-  end
+  isMouseOver = mousePos.x > self.position.x and
+    mousePos.x < self.position.x + self.size.x and
+    mousePos.y > self.position.y and
+    mousePos.y < self.position.y + self.size.y
   
   self.state = isMouseOver and CARD_STATE.MOUSE_OVER or CARD_STATE.IDLE
 end
@@ -192,7 +198,6 @@ function ZeusPrototype:newCard(_player)
   return card
 end
 function ZeusPrototype:onReveal(cardLocation)
-  print("revealed")
   local enemyHand = pileTable[10]
   if self.player == 2 then
     enemyHand = pileTable[5]
@@ -404,7 +409,6 @@ function AphroditePrototype:new(_player)
   return card
 end
 function AphroditePrototype:onReveal(cardLocation)
-  print("hello")
   local enemyLocation = pileTable[6]
   if cardLocation == 1 then
     if self.player == 2 then
@@ -421,8 +425,6 @@ function AphroditePrototype:onReveal(cardLocation)
       enemyLocation = pileTable[3]
     end
   end
-  print(enemyLocation)
-  print(pileTable[7])
   for _, card in ipairs(enemyLocation.cards) do
     card.power = card.power - 1
   end
@@ -566,7 +568,6 @@ function PersephonePrototype:onReveal(cardLocation)
         lowestPower = card.power
       end
     end
-    print(lowestCard.name)
     if lowestCard == nil then
       self.revealed = true
       return
