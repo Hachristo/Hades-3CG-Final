@@ -24,11 +24,6 @@ scene = 1
 
 submitBuffer = true
 
-ENTITIES = {
-  PLAYER = 1,
-  AI = 2
-}
-
 cardConstructors = {
   cardWoodenCow = WoodenCowPrototype.new,
   cardPegasus = PegasusPrototype.new,
@@ -84,7 +79,6 @@ function love.load()
   titleFont = love.graphics.newFont("UbinSans.otf", 72)
   defaultFont = love.graphics.newFont("UbinSans.otf", 12)
   loadMenu()
-  --loadGame(seed, seedAI)
 end
 
 function love.update()
@@ -214,21 +208,36 @@ function gameSetup()
 end
 
 function resetGame()
+  playerMana = 1
+  playerBonusMana = 0
+  playerPoints = 0
+
+  AIMana = 1
+  AIBonusMana = 0
+  AIPoints = 0
+
+  turn = 1
+
+  submitBuffer = true
   loadGame(seed, seedAI)
 end
 
 function restartGame()
   seed = os.time()
   seedAI = seed + 1
+  playerMana = 1
+  playerBonusMana = 0
+  playerPoints = 0
+
+  AIMana = 1
+  AIBonusMana = 0
+  AIPoints = 0
+
+  turn = 1
+
+  submitBuffer = true
   loadGame(seed, seedAI)
 end
-
---function winSetup()
---  pileTable[8]:addCard(CardClass:new(0, 0, "card_spades_13.png"))
---  pileTable[9]:addCard(CardClass:new(0, 0, "card_clubs_13.png"))
---  pileTable[10]:addCard(CardClass:new(0, 0, "card_hearts_13.png"))
---  pileTable[11]:addCard(CardClass:new(0, 0, "card_diamonds_13.png"))
---end
 
 function loadMenu()
   love.window.setMode(1920, 1080)
@@ -276,7 +285,6 @@ function loadGame(seed, seedAI)
   drawPileAI = DrawPileClass:new(1600, 50, cardTable, deckAI, pileTable[10], pileTable[9])
   
   gameSetup()
-  --winSetup()
 end
 function submitMove()
   comparePiles(pileTable[1], pileTable[6], 1)

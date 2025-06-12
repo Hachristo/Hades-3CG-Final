@@ -9,11 +9,6 @@ CARD_STATE = {
   GRABBED = 2
 }
 
-ENTITIES = {
-  PLAYER = 1,
-  AI = 2
-}
-
 SPRITE_SIZE = 8
 SPRITE_SCALE = 0.6
 

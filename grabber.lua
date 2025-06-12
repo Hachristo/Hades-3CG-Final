@@ -67,17 +67,6 @@ function GrabberClass:grab()
     if prevPrevPile ~= nil then
       self.prevPile = prevPrevPile
     end
-    -- grab cards below
---    local indexReached = false
---    if self.prevPile == nil then return end
---    for _, card in ipairs(self.prevPile.cards) do
---      if indexReached then
---        table.insert(self.heldObject, card)
---      end
---      if card == self.heldObject[1] then
---        indexReached = true
---      end
---    end
   end
 end
 
@@ -140,7 +129,9 @@ function GrabberClass:release()
 end
 
 function GrabberClass:checkEnoughMana()
-  if playerMana - self.heldObject[1].cost < 0 then
+  if self.currentPile == pileTable[4] then
+    return true
+  elseif playerMana - self.heldObject[1].cost < 0 then
     return false
   else
     return true

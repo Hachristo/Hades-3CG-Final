@@ -71,27 +71,8 @@ function DeckClass:fillDeck()
     local card = self.allCards[randomIndex] .. ".png"
     table.insert(self.cards, card)
     table.remove(self.allCards, randomIndex)
---    table.insert(self.cards, "Nyx.png")
   end
 end
-
---function DeckClass:refillDeck()
---  for _, tableCard in ipairs(self.discard.cards) do
---    local card = "card_" .. tableCard.suit .. "_" .. tableCard.number .. ".png"
---    table.insert(deck.cards, card)
---  end
---  local length = #self.discard.cards
---  for i = 1, length do
---    table.remove(self.discard.cards, 1)
---  end
---end
-
---function DeckClass:popCard()
---  local cardIndex = math.random(#deck.cards)
---  local card = deck.cards[cardIndex]
---  table.remove(deck.cards, cardIndex)
---  return card
---end
 
 function DeckClass:removeTopCard()
   local card = self.cards[1]
